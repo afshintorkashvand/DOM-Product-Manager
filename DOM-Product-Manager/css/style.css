@@ -26,3 +26,10 @@ main {
   padding: 24px;
   border-radius: 12px;
 }
+
+.product-card{
+  padding: 20px;
+  border: 1px solid black;
+  border-radius: 10px;
+  background-color: #ffffff;
+}
