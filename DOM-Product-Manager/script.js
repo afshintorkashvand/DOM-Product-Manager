@@ -27,45 +27,54 @@ const productForm = document.querySelector("form")
 
 function createProductCard(item) {
 
-        const productCard = document.createElement("div");
-        productCard.classList.add("product-card");
-        const productTitle = document.createElement("h3");
-        const productPrice = document.createElement("p");
-        const deleteButton = document.createElement("button");
-        deleteButton.textContent = "Delete"
-        deleteButton.addEventListener("click", function () {
-            productCard.remove()
-            const productIndex = products.findIndex(function (product) {
-                return product.id === item.id
-            })
-            products.splice(productIndex, 1)
+    const productCard = document.createElement("div");
+    productCard.classList.add("product-card");
+    const productTitle = document.createElement("h3");
+    const productPrice = document.createElement("p");
+    const deleteButton = document.createElement("button");
+    deleteButton.textContent = "Delete"
+    deleteButton.addEventListener("click", function () {
+        productCard.remove()
+        const productIndex = products.findIndex(function (product) {
+            return product.id === item.id
         })
+        products.splice(productIndex, 1)
+    })
 
-        productTitle.textContent = item.title;
-        productPrice.textContent = item.price;
+    productTitle.textContent = item.title;
+    productPrice.textContent = item.price;
 
-        productCard.append(productTitle, productPrice, deleteButton);
-        return productCard
+    productCard.append(productTitle, productPrice, deleteButton);
+    return productCard
 };
 
 
 
 productForm.addEventListener("submit", function (event) {
     event.preventDefault()
-    const productName = productNameInput.value;
-    const productPrice = Number(productPriceInput.value);
+    if (productNameInput.value.trim() !== "" && productPriceInput.value !== "" && productPriceInput.value > 0 && Number.isInteger(Number(productPriceInput.value))) {
+        const productName = productNameInput.value.trim();
+        const productPrice = Number(productPriceInput.value);
 
-    const newProduct = {
-        id: Date.now(),
-        title: productName,
-        price: productPrice,
+        const newProduct = {
+            id: Date.now(),
+            title: productName,
+            price: productPrice,
+        }
+        products.push(newProduct)
+
+        productsContainer.append(createProductCard(newProduct));
+
+        productNameInput.value = ""
+        productPriceInput.value = ""
     }
-    products.push(newProduct)
-    
-    productsContainer.append(createProductCard(newProduct));
+    else {
+        alert("ورودی نامعتبر است")
+    }
+
 })
 
-products.forEach(function(item){
+products.forEach(function (item) {
     productsContainer.append(createProductCard(item));
 })
 
