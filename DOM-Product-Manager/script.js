@@ -25,11 +25,21 @@ products.forEach(function (item) {
     productCard.classList.add("product-card");
     const productTitle = document.createElement("h3");
     const productPrice = document.createElement("p");
+    const deleteButton = document.createElement("button");
+    deleteButton.textContent = "Delete"
+    deleteButton.addEventListener("click", function () {
+        productCard.remove()
+        const productIndex = products.findIndex(function (product) {
+            return product.id === item.id
+        })
+        products.splice(productIndex, 1)
+    })
 
     productTitle.textContent = item.title;
     productPrice.textContent = item.price;
 
-    productCard.append(productTitle, productPrice);
+    productCard.append(productTitle, productPrice, deleteButton);
 
     productsContainer.append(productCard);
 })
+
