@@ -2,6 +2,16 @@
 
 const productsContainer = document.querySelector("#products")
 
+
+
+const productNameInput = document.querySelector("#product-name");
+const productPriceInput = document.querySelector("#product-price");
+const productForm = document.querySelector("form")
+
+productForm.addEventListener("submit", function(){
+    
+})
+
 const products = [
     {
         id: 1,
