@@ -33,20 +33,34 @@ function createProductCard(item) {
     const productPrice = document.createElement("p");
     const deleteButton = document.createElement("button");
     deleteButton.textContent = "Delete"
+    const editButton = document.createElement("button");
+    editButton.textContent = "Edit"
+
     deleteButton.addEventListener("click", function () {
         productCard.remove()
         const productIndex = products.findIndex(function (product) {
             return product.id === item.id
         })
         products.splice(productIndex, 1)
-    })
+    });
+
+    editButton.addEventListener("click", function () {
+        const newTitle = prompt("Enter new product name");
+        if (newTitle !== null && newTitle.trim() !== "") {
+            item.title = newTitle.trim()
+            productTitle.textContent = newTitle.trim()
+        }
+    });
 
     productTitle.textContent = item.title;
     productPrice.textContent = item.price;
 
-    productCard.append(productTitle, productPrice, deleteButton);
+    productCard.append(productTitle, productPrice, deleteButton, editButton);
     return productCard
+
+
 };
+
 
 
 
